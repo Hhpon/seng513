@@ -8,7 +8,7 @@ body {
     width: 900px;
     margin: 0 auto;
     overflow: hidden;
-    background-color: #33d7ff;
+    background-color: #263537;
 }
 
 h1 {
@@ -24,12 +24,21 @@ h2 {
 h3 {
     background-color: sienna;
     padding: 10px;
+
+}
+h4 {
+    padding:20px;
+    font-size: 30px;
+    font-weight: lighter;
+    color: #4aff3c;
+    text-align: center;
 }
 
 p {
     font-size: 20px;
     font-family: "Times New Roman";
     margin-top: 30px;
+    text-decoration: underline;
 }
 .boxes{
     width: 900px;
@@ -39,13 +48,14 @@ p {
     flex-direction: column;
     flex-direction: row;
     align-items: center;
+    background-color: #EEF2ED;
 }
 
 a:hover {
     text-decoration: underline;
 }
 a:link, a:visited {
-    color: #5D6063;
+    color: #4653ff;
     text-decoration: none;
 
 }
