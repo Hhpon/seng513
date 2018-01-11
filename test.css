@@ -27,17 +27,34 @@ h3 {
 }
 
 p {
-    font-size: 24px;
-    font-family: Arial;
+    font-size: 20px;
+    font-family: "Times New Roman";
     margin-top: 30px;
 }
 .boxes{
     width: 900px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     flex-wrap: wrap;
     flex-direction: column;
     flex-direction: row;
     align-items: center;
 }
 
+a:hover {
+    text-decoration: underline;
+}
+a:link, a:visited {
+    color: #5D6063;
+    text-decoration: none;
+
+}
+
+ul {
+    font-family: Georgia;
+    font-size: medium;
+}
+ol {
+    font-family: Helvetica;
+    font-size: large;
+}
