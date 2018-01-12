@@ -8,12 +8,13 @@ body {
     width: 900px;
     margin: 0 auto;
     overflow: hidden;
-    background-color: #263537;
+    background-color: #fbfbff;
 }
 
 h1 {
-    background-color: #F6FF33;
+    background-color: #263537;
     padding: 50px;
+    color: ghostwhite;
 }
 
 h2 {
@@ -26,19 +27,17 @@ h3 {
     padding: 10px;
 
 }
-h4 {
-    padding:20px;
-    font-size: 30px;
-    font-weight: lighter;
-    color: #4aff3c;
-    text-align: center;
-}
+
 
 p {
     font-size: 20px;
     font-family: "Times New Roman";
     margin-top: 30px;
+    margin-bottom: 30px;
     text-decoration: underline;
+}
+.description{
+    text-decoration: none;
 }
 .boxes{
     width: 900px;
