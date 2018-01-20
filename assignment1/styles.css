@@ -5,6 +5,64 @@
 }
 body {
     height: 1000px;
-    font-family: Arial;
-    background-color: #E2E2E2;
+    background-color: #FAF9F9;
+    font-size: 18px; /*Might have to change the font size for the header */
+    font-family: sans-serif;
 }
+
+/*Top level page images    */
+.photo-grid-container{
+    display: flow;
+    padding: 50px;
+}
+.photo-grid{
+    width: 900px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: initial;
+    flex-direction: row;
+    align-items: center;
+    padding: 50px;
+    justify-content: space-between;
+}
+
+.photo-grid-item {
+    width: 300px;
+    height: 300px;
+}
+/* align text in the top level page*/
+.text{
+    text-align: center;
+}
+
+/* Header that is seen across the website pages  */
+.header {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 5px;
+    background: #E8EAE5;
+}
+.menu {
+    margin-top: 15px;
+}
+.menu > li {
+    display: inline;
+    margin-right: 50px;
+
+}
+
+.menu > li:last-of-type{
+    margin-right:0
+}
+a:link, a:visited {
+    color: #5D6063;
+    text-decoration: none;
+
+}
+
+a:hover {
+    text-decoration: underline;
+}
+

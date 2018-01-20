@@ -2,7 +2,7 @@
 10123550
 SENG 513 Assignment 1 -->
 <!DOCTYPE html>
-<body lang = 'en'>
+<html lang = 'en'>
 <head>
     <meta charset="utf-8"/>
     <title>American Muscle Cars</title>
@@ -13,17 +13,26 @@ SENG 513 Assignment 1 -->
 <!-- Beginning page will have a 4 photo grid where one can click -->
     <div class = 'photo-grid-container'>
        <div class = 'photo-grid'>
-            <div class = 'photo-grid-item first-item'>
-                <img src = 'images/mustang.jpg'/>
-            </div>
+
+            <div class = 'photo-grid-item first-item '>
+                <a href = 'page1.html'><img src = 'images/mustang.jpg' title = 'Mustang'/></a>
+                   <div class ='text'>Ford Mustang </div>
+                </div>
+
             <div class = 'photo-grid-item'>
-                <img src = 'images/camaro.jpg'>
+                <img src = 'images/camaro.jpg' title ='Camaro'/>
+                <div class ='text'>Chevrolet Camaro </div>
             </div>
+
             <div class = 'photo-grid-item'>
-                <img src = 'images/charger.jpg'/>
+                <img src = 'images/charger.jpg' title = 'Charger'/>
+                <div class ='text'>Dodge Charger </div>
             </div>
-            <div class = 'photo-grid-item'>
-                <img src = 'images/pontiac.jpg'/>
+
+            <div class = 'photo-grid-item last-item'>
+                <img src = 'images/pontiac.jpg' title = 'Pontiac'/>
+                <div class ='text'>Pontiac GTO </div>
+
             </div>
         </div>
     </div>
