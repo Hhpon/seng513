@@ -36,6 +36,7 @@ body {
 }
 
 /* Header that is seen across the website pages  */
+/*
 .header {
     position: fixed;
     display: flex;
@@ -44,6 +45,20 @@ body {
     padding: 5px;
     background: #E8EAE5;
 }
+*/
+.header-container {
+    color: #fff;
+    background-color: #E8EAE5;
+    padding: 20px 0;
+    display: flex;
+    justify-content: center;
+}
+.header{
+    width: 900px;
+    display: flex;
+    justify-content: space-around;
+}
+
 .menu {
     margin-top: 15px;
 }
