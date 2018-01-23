@@ -1,3 +1,4 @@
+/*CSS tags for main page stuff    */
 * {
     margin: 0;
     padding: 0;
@@ -5,20 +6,52 @@
 }
 body {
     height: 1000px;
-    background-color: #FAF9F9;
+    background-color: #FDFFFC;
     font-size: 18px; /*Might have to change the font size for the header */
-    font-family: sans-serif;
+    font-family: "PT Sans";
 }
 
+h1 {
+    display: block;
+    font-size: 2em;
+    margin-top: 0.67em;
+    margin-bottom: 0.67em;
+    margin-left: 0;
+    margin-right: 0
+}
+p {
+    margin: 0 auto;
+    margin-left: 10px;
+}
+
+
+
+
+
+
+/*CSS tags for ID's  */
 /*Top level page images    */
+
+/*CSS for page1.html*/
+#mustang{
+    text-align: center;
+}
+
+
+
+/* end of css page1.html  */
+
+
+/*CSS for toplevel.html photo grid of 4 photos   */
 .photo-grid-container{
     display: flow;
     padding: 50px;
+    justify-content: center;
 }
 .photo-grid{
     width: 900px;
     display: flex;
-    justify-content: center;
+    /*justify-content: center;*/
     flex-wrap: initial;
     flex-direction: row;
     align-items: center;
@@ -36,16 +69,7 @@ body {
 }
 
 /* Header that is seen across the website pages  */
-/*
-.header {
-    position: fixed;
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    padding: 5px;
-    background: #E8EAE5;
-}
-*/
+
 .header-container {
     color: #fff;
     background-color: #E8EAE5;
@@ -71,10 +95,10 @@ body {
 .menu > li:last-of-type{
     margin-right:0
 }
+/*style for links   */
 a:link, a:visited {
     color: #5D6063;
     text-decoration: none;
-
 }
 
 a:hover {
