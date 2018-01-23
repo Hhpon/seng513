@@ -4,28 +4,40 @@
     padding: 0;
     box-sizing: border-box;
 }
+
 body {
     height: 1000px;
     background-color: #FDFFFC;
     font-size: 18px; /*Might have to change the font size for the header */
-    font-family: "PT Sans";
+    font-family: Helvetica, Arial, sans-serif;
 }
 
 h1 {
     display: block;
     font-size: 2em;
-    margin-top: 0.67em;
-    margin-bottom: 0.67em;
-    margin-left: 0;
-    margin-right: 0
+    padding-top: 0.67em;
+    padding-bottom: 0.67em;
+    padding-left: 0;
+    padding-right: 0;
+    text-align: center;
 }
+
 p {
-    margin: 0 auto;
-    margin-left: 10px;
+    padding: 0 auto;
+    padding-left: 10px;
+    text-align: center;
 }
 
+ul {
+    display: block;
+    list-style-type: inside;
+    text-align: center;
 
+}
 
+ul > li {
+    padding: 1px;
+}
 
 
 
@@ -33,22 +45,32 @@ p {
 /*Top level page images    */
 
 /*CSS for page1.html*/
-#mustang{
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    margin: 0 auto;
+    padding-bottom: 25px;
+}
+td, th {
+    border: 1px solid #dddddd;
+    padding: 8px;
+    font-weight: normal;
     text-align: center;
+
 }
 
 
 
 /* end of css page1.html  */
 
-
 /*CSS for toplevel.html photo grid of 4 photos   */
-.photo-grid-container{
+.photo-grid-container {
     display: flow;
     padding: 50px;
     justify-content: center;
 }
-.photo-grid{
+
+.photo-grid {
     width: 900px;
     display: flex;
     /*justify-content: center;*/
@@ -63,8 +85,9 @@ p {
     width: 300px;
     height: 300px;
 }
+
 /* align text in the top level page*/
-.text{
+.text {
     text-align: center;
 }
 
@@ -72,12 +95,14 @@ p {
 
 .header-container {
     color: #fff;
-    background-color: #E8EAE5;
+    background-color: #dce0e2;
+    /*og colour: #CFDBD5 */
     padding: 20px 0;
     display: flex;
     justify-content: center;
 }
-.header{
+
+.header {
     width: 900px;
     display: flex;
     justify-content: space-around;
@@ -86,15 +111,17 @@ p {
 .menu {
     margin-top: 15px;
 }
+
 .menu > li {
     display: inline;
     margin-right: 50px;
 
 }
 
-.menu > li:last-of-type{
-    margin-right:0
+.menu > li:last-of-type {
+    margin-right: 0
 }
+
 /*style for links   */
 a:link, a:visited {
     color: #5D6063;
