@@ -7,7 +7,7 @@
 
 body {
     height: 1000px;
-    background-color: #FDFFFC;
+    background-color: #F7F7FF;
     font-size: 18px; /*Might have to change the font size for the header */
     font-family: Helvetica, Arial, sans-serif;
 }
@@ -15,11 +15,12 @@ body {
 h1 {
     display: block;
     font-size: 2em;
-    padding-top: 0.67em;
-    padding-bottom: 0.67em;
-    padding-left: 0;
-    padding-right: 0;
+    padding: 0.67em 0;
     text-align: center;
+}
+h3 {
+    text-align: center;
+    color: whitesmoke;
 }
 
 p {
@@ -52,16 +53,34 @@ table {
     padding-bottom: 25px;
 }
 td, th {
-    border: 1px solid #dddddd;
+    border: 3px solid #dddddd;
     padding: 8px;
     font-weight: normal;
     text-align: center;
 
 }
 
-
-
 /* end of css page1.html  */
+
+/*  CSS for page2.html  */
+.column {
+    float: left;
+    width: 33%;
+    height: 300px;
+    background-color: #767e87;
+    display: flow;
+
+}
+.column > img {
+    max-height: 75%;
+    max-width: 80%;
+    padding-left: 5%;
+    padding-top: 2%;
+    align-items: center;
+}
+
+
+
 
 /*CSS for toplevel.html photo grid of 4 photos   */
 .photo-grid-container {
@@ -95,7 +114,7 @@ td, th {
 
 .header-container {
     color: #fff;
-    background-color: #dce0e2;
+    background-color: #BDD5EA;
     /*og colour: #CFDBD5 */
     padding: 20px 0;
     display: flex;
