@@ -6,21 +6,23 @@
 }
 
 body {
-    height: 1000px;
     background-color: #F7F7FF;
     font-size: 18px; /*Might have to change the font size for the header */
-    font-family: Helvetica, Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
 }
 
 h1 {
-    display: block;
     font-size: 2em;
     padding: 0.67em 0;
     text-align: center;
 }
+h2 {
+    font-weight: normal;
+    text-align: center;
+}
 h3 {
     text-align: center;
-    color: whitesmoke;
+    color: #343434;
 }
 
 p {
@@ -39,70 +41,137 @@ ul {
 ul > li {
     padding: 1px;
 }
-
-
-
-/*CSS tags for ID's  */
-/*Top level page images    */
+/* making all images with a rounded border, looks pretty  */
+img{
+    border-radius: 10px;
+}
 
 /*CSS for page1.html*/
+/* table css properties, made it so even and odd rows are different color,
+also rounded borders, because it's better looking, center aligned
+ */
 table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    margin: 0 auto;
-    padding-bottom: 25px;
+
+    width: 90%;
+    background: white;
+    overflow: hidden;
+    border-radius: 15px;
+
+    margin-left: auto;
+    margin-right: auto;
 }
-td, th {
-    border: 3px solid #dddddd;
+
+td {
+   border: 3px solid #dddddd;
     padding: 8px;
     font-weight: normal;
     text-align: center;
 
 }
 
-/* end of css page1.html  */
+th {
+    display: flow;
+    color: #554e4c;
+    padding: 0.5em;
+    text-align: center;
+
+}
+tr {
+    background-color: #f3ece3;
+}
+tr:nth-child(odd) {
+    background-color: #ebf2fa;
+}
+tr:nth-child(even) {
+    background-color: rgba(62, 146, 204, 0.43);
+}
 
 /*  CSS for page2.html  */
+/*
+could probably make the pictures in this page look better, but keep getting alignment issues,
+should've done a better job with the columns, but changing the width of the images distorted it too much
+ */
 .column {
     float: left;
     width: 33%;
     height: 300px;
-    background-color: #767e87;
+    background-color: #ebf2fa;
+    color: black;
     display: flow;
 
 }
 .column > img {
     max-height: 75%;
-    max-width: 80%;
+    max-width: 85%;
     padding-left: 5%;
     padding-top: 2%;
     align-items: center;
 }
 
+/* CSS for page4.html   */
+/*
+centered text, round images, larger text to fill out empty space, padding and margin to allow spaces between outside
+and inside div items
+ */
+.charger-layout{
+    border: none;
+    border-radius: 15px;
+    /*color: #f2f2f2;*/
+    background-color: #ebf2fa;
+    width: 95%;
+    margin: auto;
+}
 
+.charger-item{
+    display: flex;
+    flex-wrap: initial;
+    flex-direction: column;
 
+}
 
-/*CSS for toplevel.html photo grid of 4 photos   */
+.inner-wrapper{
+    display: flex;
+    padding: 10px 10px;
+}
+.inner-wrapper >img{
+    border-radius: 25px;
+}
+
+.info{
+    text-align: center;
+    padding-left: 15px;
+    padding-top: 5%;
+    margin: auto;
+    font-size: larger;
+
+}
+
+/*CSS for toplevel.html photo grid of 3 photos   */
+/*
+may have been a terribly complicated photo grid, but so far it looks nice
+photos are evenly spaced out, rounded images,
+ */
+
 .photo-grid-container {
     display: flow;
     padding: 50px;
-    justify-content: center;
 }
 
 .photo-grid {
-    width: 900px;
     display: flex;
     /*justify-content: center;*/
     flex-wrap: initial;
     flex-direction: row;
     align-items: center;
     padding: 50px;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .photo-grid-item {
     width: 300px;
     height: 300px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 /* align text in the top level page*/
@@ -111,6 +180,7 @@ td, th {
 }
 
 /* Header that is seen across the website pages  */
+/*went over header stuff in tutorial */
 
 .header-container {
     color: #fff;
