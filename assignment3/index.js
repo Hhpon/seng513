@@ -1,6 +1,17 @@
+//var express = require('express');
+//var app = express();
 var app = require('express')();
+
+//var server = require('http').Server(app);
 var http = require('http').Server(app);
+
+//var io = require('socket.io').listen(server);
 var io = require('socket.io')(http);
+
+//array for users and connections
+users = [];
+connections = [];
+
 
 
 app.get('/', function(req,res) {
@@ -9,9 +20,23 @@ app.get('/', function(req,res) {
 });
 
 io.on('connection', function(socket){
-    socket.on('chat message', function(msg){
-        console.log('msg:' + msg);
+    connections.push(socket);
+    console.log('Connected: %s sockets connected', connections.length);
+
+
+    //disconnect
+
+    socket.on('disconnect', function(data){
+        connections.splice(connections.indexOf(socket), 1);
+        console.log('Disconnected: %s sockets connected', connections.length);
     });
+
+    //send message
+    socket.on('send message', function(data){
+        console.log(data);
+        io.sockets.emit('new message', {msg: data});
+    });
+
 });
 
 http.listen(3000, function(){
