@@ -1,11 +1,8 @@
-//var express = require('express');
-//var app = express();
-var app = require('express')();
+var express = require('express');
+var app = express();
 
-//var server = require('http').Server(app);
 var http = require('http').Server(app);
 
-//var io = require('socket.io').listen(server);
 var io = require('socket.io')(http);
 
 //array for users and connections
@@ -13,11 +10,14 @@ users = [];
 connections = [];
 
 
-
+/*
 app.get('/', function(req,res) {
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(__dirname + '/public/index.html');
 
 });
+*/
+app.use(express.static(__dirname + '/public'));
+
 
 io.on('connection', function(socket){
     connections.push(socket);
@@ -35,7 +35,7 @@ io.on('connection', function(socket){
 
     //send message
     socket.on('send message', function(data){
-        console.log(data);
+        //console.log(data);
         io.sockets.emit('new message', {msg: data, user: socket.username});
     });
 

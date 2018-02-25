@@ -1,24 +1,21 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang = 'en'>
 <head>
+    <meta charset="utf-8"/>
     <title>Assignment 3 chat</title>
-
-   <style>
-
-     body{
-         padding-top: 50px;
-     }
-     #messageArea {
-           display: none;
-       }
-
+    <link rel="stylesheet" type = text/css href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <!-- <link rel = 'stylesheet' href = 'styles.css'/> -->
+    <style>
+        body{
+            padding-top: 50px;
+        }
+        #messageArea {
+            display: none;
+            bottom: 0;
+        }
     </style>
 
 </head>
-
-
-<link rel="stylesheet" type = text/css href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
 
 
 <body>
@@ -61,6 +58,7 @@
                 </div>
             </form>
         </div>
+
         </div>
     </div>
 
@@ -98,12 +96,14 @@
                 e.preventDefault() ;
                 socket.emit('new user', $username.val(), function(data){
                     if(data){
-                        $userFormArea.hide();
                         $messageArea.show();
+                        //$messageForm.show();
                     }
 
                 });
                 username.val('');
+              //  username.value('');
+
 
             });
 
