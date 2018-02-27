@@ -4,6 +4,8 @@
   "description": "assignment 3 chat app",
   "dependencies": {
     "express": "^4.15.2",
-    "socket.io": "^2.0.4"
+    "socket.io": "^2.0.4",
+    "cookie-parser": "^1.4.3",
+    "cookies": "^0.7.1"
   }
 }

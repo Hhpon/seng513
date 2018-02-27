@@ -1,60 +1,116 @@
 var express = require('express');
 var app = express();
-
-var http = require('http').Server(app);
-
+var http = require('http').createServer(app);
 var io = require('socket.io')(http);
+var port = 3000;
 
-//array for users and connections
-users = [];
-connections = [];
+var cookie = require('cookies');
+var cookieParser = require('cookie-parser');
 
+var userList = [];
+var userMap = new Map();
+var userMessages = [];
 
-/*
-app.get('/', function(req,res) {
-    res.sendFile(__dirname + '/public/index.html');
+var words;
+var nick;
+var newColour;
+var newUser;
+var index;
+var userTime;
+var messageSent;
 
+http.listen( port, function () {
+    console.log('listening on port', port);
 });
-*/
-app.use(express.static(__dirname + '/public'));
 
+app.use(cookieParser());
 
+// listen to 'chat' messages
 io.on('connection', function(socket){
-    connections.push(socket);
-    console.log('Connected: %s sockets connected', connections.length);
 
-
-    //disconnect
-
-    socket.on('disconnect', function(data){
-        users.splice(users.indexOf(socket.username),1);
-        updateUsernames();
-        connections.splice(connections.indexOf(socket), 1);
-        console.log('Disconnected: %s sockets connected', connections.length);
+    socket.on('addUser', function(addID, addColour){
+        userList.push(addID);
+        userMap.set(socket, {userID: addID, colour: addColour});
+        io.emit('changeList', userList);
+        socket.emit('loadMessages', userMessages);
+        socket.emit('changeID', addID);
     });
 
-    //send message
-    socket.on('send message', function(data){
-        //console.log(data);
-        io.sockets.emit('new message', {msg: data, user: socket.username});
+    socket.on('chat', function(chatMsg, userID, userColour){
+
+        words = chatMsg.split(" ");
+        //check the first word for either color or nick
+        //to change color or nickname
+        nick = words[0];
+
+        if(nick === "/nickcolor")
+        {
+            newColour = words[1];
+            userMap.set(socket, {userID: userMap.get(socket).userID, colour: newColour});
+            socket.emit('changeColour', newColour);
+        }
+
+        else if(nick === "/nick")
+        {
+            newUser = words[1];
+            index = userList.indexOf(newUser);
+
+            if(index === -1)
+            {
+                socket.emit('changeID', newUser);
+                userList[userList.indexOf(userID)] = newUser;
+                userMap.set(socket, {userID: newUser, colour: userMap.get(socket).colour});
+                io.emit('changeList', userList);
+            }
+        }
+
+        userTime = getTime();
+
+
+        messageSent = '<li><b>' + userTime + '</b>' + '<span style="color:' + userColour + '">' +
+            userID + " </span>" + chatMsg + '</li>';
+
+        if(userMessages.length < 200)
+        {
+            userMessages.push(messageSent);
+        }
+
+        else{
+            userMessages.push(messageSent);
+        }
+
+        socket.emit('chat', chatMsg, userTime, userID, userColour, "bold");
+        socket.broadcast.emit('chat', chatMsg, userTime, userID, userColour, "");
     });
 
-    //New User
-    socket.on('new user', function(data, callback){
-        callback(true);
-        socket.username = data;
-        users.push(socket.username);
-        updateUsernames();
+    socket.on('disconnect', function(){
+        userList = [];
+        userMap.delete(socket);
+
+        userMap.forEach(function(userInfo, socket){
+            userList.push(userInfo.userID);
+        });
+
+        io.emit('changeList', userList);
     });
 
 
-    function updateUsernames(){
-        io.sockets.emit('get users', users);
+});
+
+
+function getTime() {
+    var displayTime = "";
+    var date = new Date();
+    var hour = date.getHours();
+    var minute = date.getMinutes();
+
+    if(minute < 10)
+    {
+        minute = "0" + minute;
     }
+//need spacing for time: username: message
+    displayTime += hour + ":" + minute + "   ";
+    return displayTime;
+}
 
-
-});
-
-http.listen(3000, function(){
-    console.log('listening on *:3000');
-});
+app.use(express.static(__dirname + '/public'));
