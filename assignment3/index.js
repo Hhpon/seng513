@@ -1,14 +1,14 @@
+//taken from: https://socket.io/get-started/chat/
+//socket io chat tutorial
 var express = require('express');
-var app = express();
+
+var app = require('express')();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 var port = 3000;
 
-var cookie = require('cookies');
-var cookieParser = require('cookie-parser');
 
 var userList = [];
-var userMap = new Map();
 var userMessages = [];
 
 var words;
@@ -19,21 +19,25 @@ var index;
 var userTime;
 var messageSent;
 
+app.use(express.static(__dirname + '/public'));
+
 http.listen( port, function () {
     console.log('listening on port', port);
 });
 
-app.use(cookieParser());
 
 // listen to 'chat' messages
 io.on('connection', function(socket){
 
-    socket.on('addUser', function(addID, addColour){
+    //get current time from server
+    userTime = getTime();
+
+    socket.on('addUser', function(addID){
         userList.push(addID);
-        userMap.set(socket, {userID: addID, colour: addColour});
-        io.emit('changeList', userList);
+
+        io.emit('usernames', userList);
         socket.emit('loadMessages', userMessages);
-        socket.emit('changeID', addID);
+        io.emit('changeID', addID);
     });
 
     socket.on('chat', function(chatMsg, userID, userColour){
@@ -43,53 +47,27 @@ io.on('connection', function(socket){
         //to change color or nickname
         nick = words[0];
 
-        if(nick === "/nickcolor")
-        {
+        if(nick === "/nickcolor") {
             newColour = words[1];
-            userMap.set(socket, {userID: userMap.get(socket).userID, colour: newColour});
             socket.emit('changeColour', newColour);
         }
 
-        else if(nick === "/nick")
-        {
+        else if(nick === "/nick") {
             newUser = words[1];
             index = userList.indexOf(newUser);
+            socket.emit('changeID', newUser);
+            io.emit('usernames', userList);
 
-            if(index === -1)
-            {
-                socket.emit('changeID', newUser);
-                userList[userList.indexOf(userID)] = newUser;
-                userMap.set(socket, {userID: newUser, colour: userMap.get(socket).colour});
-                io.emit('changeList', userList);
-            }
         }
 
-        userTime = getTime();
+        messageSent = userTime + ": "  + '<span style="color:' + userColour + '">' + userID + " </span>" + chatMsg + "<br>" ;
+        userMessages.push(messageSent);
 
-
-        messageSent = '<li><b>' + userTime + '</b>' + '<span style="color:' + userColour + '">' +
-            userID + " </span>" + chatMsg + '</li>';
-
-        if(userMessages.length < 200)
-        {
-            userMessages.push(messageSent);
-        }
-
-        else{
-            userMessages.push(messageSent);
-        }
-
-        socket.emit('chat', chatMsg, userTime, userID, userColour, "bold");
-        socket.broadcast.emit('chat', chatMsg, userTime, userID, userColour, "");
+        socket.emit('chat', chatMsg, userTime, userID, userColour, '');
     });
 
     socket.on('disconnect', function(){
-        userList = [];
-        userMap.delete(socket);
-
-        userMap.forEach(function(userInfo, socket){
-            userList.push(userInfo.userID);
-        });
+       userList.splice(userList.indexOf((socket.nick)));
 
         io.emit('changeList', userList);
     });
@@ -99,7 +77,7 @@ io.on('connection', function(socket){
 
 
 function getTime() {
-    var displayTime = "";
+    var displayTime;
     var date = new Date();
     var hour = date.getHours();
     var minute = date.getMinutes();
@@ -108,9 +86,13 @@ function getTime() {
     {
         minute = "0" + minute;
     }
-//need spacing for time: username: message
-    displayTime += hour + ":" + minute + "   ";
+    if (hour > 12){
+        hour = hour -12;
+        displayTime = hour + ":" + minute + "pm" + "   ";
+    }
+    else{
+        displayTime = hour + ":" + minute + "am" + "   ";
+    }
     return displayTime;
 }
 
-app.use(express.static(__dirname + '/public'));

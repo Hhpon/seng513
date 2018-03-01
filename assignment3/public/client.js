@@ -4,13 +4,14 @@ $(function() {
     var userColour;
     var userCount = 1;
 
-    if((getCookie("userID") === "" || getCookie("userID") === null) && (getCookie("userColour") === "" || getCookie("userColour") === null))
+    //at first your username will be "user 1"
+    if((getCookie("userID") === "" || getCookie("userID") === null))
     {
-        userID = "user " + userCount;
+        userID = "user " + userCount.valueOf() ;
         userCount++;
         setCookie("userID", userID);
 
-        userColour = "yellow";
+        userColour = "green";
         setCookie("userColour", userColour);
         socket.emit('addUser', userID, userColour);
     }
@@ -18,35 +19,27 @@ $(function() {
     else{
          userID = getCookie("userID");
          userColour = getCookie("userColour");
-        socket.emit('addUser', userID, userColour);
+         socket.emit('addUser', userID, userColour);
     }
 
     socket.on('loadMessages', function(messages){
         for(var i = 0; i < messages.length; i++)
         {
-            $('#messages').append(messages[i]);
+            $('#messagesList').append(messages[i]);
         }
     });
 
     $('form').submit(function(){
-        socket.emit('chat', $('#message').val(), getCookie("userID"), getCookie("userColour"));
-        $('#message').val('');
-        return false;
+        socket.emit('chat', $('#enterMessage').val(), getCookie("userID"), getCookie("userColour"));
+        return true;
     });
 
 
-    socket.on('chat', function(msg, time, id, colour, style){
+    socket.on('chat', function(msg, time, id, colour){
 
-        if(style === "bold")
-        {
-            $('#messages').append($('<li><b>' + time + '</b>' + '<span style="color:' + colour + '">' +
-                id + ":" + " </span><b>" + msg + '</b></li>'));
-        }
-        else
-        {
-            $('#messages').append($('<li><b>' + time + '</b>' + '<span style="color:' + colour + '">' +
-                id + " </span>" + msg + '</li>'));
-        }
+            $('#messagesList').append(
+                $(time  + '<span style="color:' + colour + '">' + id  + " </span><b>" + msg )
+            );
 
     });
 
@@ -59,17 +52,20 @@ $(function() {
         $('div.currentUser').html("<h2>Your name: " + '</h2>' + "<h3>" + id + "</h3>");
     });
 
-    socket.on('changeList', function(users){
-        console.log(users);
-        var temp = "";
+    socket.on('usernames', function(users){
+        //console.log(users);
+        /*parse through users and add to the onlineUsersList in HTML file */
+        var addToUsers = "";
         for(var i = 0; i < users.length; i++){
-            temp += '<li>' + users[i] + '</li>';
+            addToUsers += '<li>' + users[i] + '</li>';
         }
-        $('#users').html(temp);
+        $('#onlineUserList').html(addToUsers);
     });
+
 });
 
-//function found at https://www.w3schools.com/js/js_cookies.asp
+//https://www.w3schools.com/js/js_cookies.asp
+//
 function getCookie(cname) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
