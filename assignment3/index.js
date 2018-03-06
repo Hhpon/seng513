@@ -30,13 +30,19 @@ http.listen( port, function () {
 io.on('connection', function(socket){
 
     //get current time from server
-    userTime = getTime();
+    userTime = currentTime();
 
     socket.on('addUser', function(addID){
+        //"user 1" gets pushed to the list of users
         userList.push(addID);
 
+        //usernames in list are sent to client.js
         io.emit('usernames', userList);
-        socket.emit('loadMessages', userMessages);
+
+        //loadMessages sent to client.js
+        io.emit('loadMessages', userMessages);
+
+        //changeID sent to client.js
         io.emit('changeID', addID);
     });
 
@@ -60,7 +66,7 @@ io.on('connection', function(socket){
 
         }
 
-        messageSent = userTime + ": "  + '<span style="color:' + userColour + '">' + userID + " </span>" + chatMsg + "<br>" ;
+        messageSent = userTime + ": "  + '<span style="color:' + userColour + ' ">' + userID + " </span>" + chatMsg + "<br>" ;
         userMessages.push(messageSent);
 
         socket.emit('chat', chatMsg, userTime, userID, userColour, '');
@@ -76,7 +82,7 @@ io.on('connection', function(socket){
 });
 
 
-function getTime() {
+function currentTime() {
     var displayTime;
     var date = new Date();
     var hour = date.getHours();

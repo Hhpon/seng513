@@ -49,12 +49,12 @@ $(function() {
 
     socket.on('changeID', function(id){
         setCookie('userID', id);
-        $('div.currentUser').html("<h2>Your name: " + '</h2>' + "<h3>" + id + "</h3>");
+        $('div.currentUser').html( " <h3>" + id + "</h3>");
     });
 
     socket.on('usernames', function(users){
         //console.log(users);
-        /*parse through users and add to the onlineUsersList in HTML file */
+        //parse through users and add to the onlineUsersList in HTML file
         var addToUsers = "";
         for(var i = 0; i < users.length; i++){
             addToUsers += '<li>' + users[i] + '</li>';
@@ -66,8 +66,8 @@ $(function() {
 
 //https://www.w3schools.com/js/js_cookies.asp
 //
-function getCookie(cname) {
-    var name = cname + "=";
+function getCookie(cookieName) {
+    var name = cookieName + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
     var ca = decodedCookie.split(';');
     for(var i = 0; i < ca.length; i++) {
@@ -82,6 +82,6 @@ function getCookie(cname) {
     return "";
 }
 
-function setCookie(cname, cvalue) {
-    document.cookie = cname + "=" + cvalue + ";";
+function setCookie(cookieName, cookieValue) {
+    document.cookie = cookieName + " = " + cookieValue + ";";
 }
