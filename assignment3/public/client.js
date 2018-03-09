@@ -1,26 +1,17 @@
 $(function() {
     var socket = io();
-    var userID;
+
     var userColour;
     var userCount = 1;
+    var userID = "user " + userCount;
 
-    //at first your username will be "user 1"
-    if((getCookie("userID") === "" || getCookie("userID") === null))
-    {
-        userID = "user " + userCount.valueOf() ;
-        userCount++;
-        setCookie("userID", userID);
+    setCookie("userID", userID);
+    //userCount++;
+    var cookieUser = userID + userCount++;
+    cookieUser = getCookie("userID");
+    userColour = getCookie("userColour");
 
-        userColour = "green";
-        setCookie("userColour", userColour);
-        socket.emit('addUser', userID, userColour);
-    }
-
-    else{
-         userID = getCookie("userID");
-         userColour = getCookie("userColour");
-         socket.emit('addUser', userID, userColour);
-    }
+    socket.emit('addUser', cookieUser, userColour);
 
     socket.on('loadMessages', function(messages){
         for(var i = 0; i < messages.length; i++)
@@ -30,15 +21,15 @@ $(function() {
     });
 
     $('form').submit(function(){
-        socket.emit('chat', $('#enterMessage').val(), getCookie("userID"), getCookie("userColour"));
+        socket.emit('chat', $('#enterMessage').val(), getCookie("cookieUser"), getCookie("userColour"));
         return true;
     });
 
 
-    socket.on('chat', function(msg, time, id, colour){
+    socket.on('chat', function(chatMessage, currentTime, id, colour){
 
             $('#messagesList').append(
-                $(time  + '<span style="color:' + colour + '">' + id  + " </span><b>" + msg )
+                $(currentTime  + '<span style= "color: ' + colour + '">' + id  + " </span><b>" + chatMessage )
             );
 
     });
@@ -48,7 +39,9 @@ $(function() {
     });
 
     socket.on('changeID', function(id){
-        setCookie('userID', id);
+        userCount++;
+        cookieUser = "user " + userCount;
+        setCookie('cookieUser', id);
         $('div.currentUser').html( " <h3>" + id + "</h3>");
     });
 
@@ -83,5 +76,5 @@ function getCookie(cookieName) {
 }
 
 function setCookie(cookieName, cookieValue) {
-    document.cookie = cookieName + " = " + cookieValue + ";";
+    document.cookie = cookieName + " = " + cookieValue  + ";";
 }

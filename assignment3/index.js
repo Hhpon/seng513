@@ -7,6 +7,8 @@ var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 var port = 3000;
 
+var cookie = require('cookies');
+var cookieParser = require('cookie-parser');
 
 var userList = [];
 var userMessages = [];
@@ -19,11 +21,11 @@ var index;
 var userTime;
 var messageSent;
 
-app.use(express.static(__dirname + '/public'));
 
 http.listen( port, function () {
-    console.log('listening on port', port);
+    console.log('Connected on port: ', port);
 });
+app.use(cookieParser());
 
 
 // listen to 'chat' messages
@@ -40,13 +42,14 @@ io.on('connection', function(socket){
         io.emit('usernames', userList);
 
         //loadMessages sent to client.js
-        io.emit('loadMessages', userMessages);
+        socket.emit('loadMessages', userMessages);
 
         //changeID sent to client.js
         io.emit('changeID', addID);
     });
 
     socket.on('chat', function(chatMsg, userID, userColour){
+
 
         words = chatMsg.split(" ");
         //check the first word for either color or nick
@@ -68,6 +71,7 @@ io.on('connection', function(socket){
 
         messageSent = userTime + ": "  + '<span style="color:' + userColour + ' ">' + userID + " </span>" + chatMsg + "<br>" ;
         userMessages.push(messageSent);
+       // var element = document.getElementByID();
 
         socket.emit('chat', chatMsg, userTime, userID, userColour, '');
     });
@@ -101,4 +105,6 @@ function currentTime() {
     }
     return displayTime;
 }
+app.use(express.static(__dirname + '/public'));
+
 
