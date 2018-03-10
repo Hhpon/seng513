@@ -3,7 +3,7 @@ $(function() {
 
     var userColour;
     var userCount = 1;
-    var userID = "user " + userCount;
+    var userID = "USER " + userCount;
 
     setCookie("userID", userID);
     //userCount++;
@@ -22,14 +22,18 @@ $(function() {
 
     $('form').submit(function(){
         socket.emit('chat', $('#enterMessage').val(), getCookie("cookieUser"), getCookie("userColour"));
-        return true;
+       //this allows to keep a persisting page rather than reloading
+        $('#enterMessage').val('');
+        return false;
     });
 
 
     socket.on('chat', function(chatMessage, currentTime, id, colour){
 
             $('#messagesList').append(
-                $(currentTime  + '<span style= "color: ' + colour + '">' + id  + " </span><b>" + chatMessage )
+                //adds to the list in html file
+                //and bolds the message sent
+                $('<li>' + currentTime + ': '  + '<span style= " color: ' + colour + '">' + id  + " </span><b>" + chatMessage +'</li>' )
             );
 
     });
