@@ -71,7 +71,6 @@ io.on('connection', function(socket){
 
         messageSent = userTime + ": "  + '<span style="color:' + userColour + ' ">' + userID + " </span>" + chatMsg + "<br>" ;
         userMessages.push(messageSent);
-       // var element = document.getElementByID();
 
         socket.emit('chat', chatMsg, userTime, userID, userColour, '');
     });
